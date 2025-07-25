@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>500キルチャレンジ予想集計</title>
+  <link rel="stylesheet" href="style.css" />
+  <script defer>
+    let predictions = [];
+
+    function addPrediction() {
+      const name = document.getElementById("predictorName").value.trim();
+      const predicted = parseInt(document.getElementById("predictedMatches").value);
+
+      if (!name || isNaN(predicted) || predicted <= 0) {
+        alert("ニックネームと予想試合数を正しく入力してね！");
+        return;
+      }
+
+      predictions.push({ name, predicted });
+      updatePredictionList();
+
+      document.getElementById("predictorName").value = "";
+      document.getElementById("predictedMatches").value = "";
+    }
+
+    function updatePredictionList() {
+      const listDiv = document.getElementById("predictionList");
+      if (predictions.length === 0) {
+        listDiv.innerHTML = "🧠 登録された予想はまだありません。";
+        return;
+      }
+
+      let html = "<ul>";
+      for (const p of predictions) {
+        html += `<li>${p.name}さん ${p.predicted}試合で予想！</li>`;
+      }
+      html += "</ul>";
+      listDiv.innerHTML = html;
+    }
+
+    function showTopPredictions() {
+      const actual = parseInt(document.getElementById("actualResult").value);
+      if (isNaN(actual) || actual <= 0) {
+        alert("実際の達成試合数を正しく入力してね！");
+        return;
+      }
+
+      const sorted = predictions
+        .map((p) => ({
+          name: p.name,
+          predicted: p.predicted,
+          diff: Math.abs(p.predicted - actual),
+        }))
+        .sort((a, b) => a.diff - b.diff)
+        .slice(0, 10);
+
+      const listDiv = document.getElementById("topResult");
+
+      if (sorted.length === 0) {
+        listDiv.innerHTML = "🔍 表示する予想がありません。";
+        return;
+      }
+
+      const namesList = sorted.map((p) => `${p.name}さん`).join("、");
+      listDiv.innerHTML = `🎉 誤差が少なかった上位10人：<br><strong>${namesList}</strong>`;
+    }
+  </script>
+</head>
+<body>
+  <h2>🎮 500キルチャレンジ📊</h2>
+
+  <h3>📝 視聴者予想登録</h3>
+  <input type="text" id="predictorName" placeholder="ニックネーム" />
+  <input type="number" id="predictedMatches" placeholder="何試合で達成予想？" />
+  <button onclick="addPrediction()">予想を登録</button>
+
+  <div class="predictor-list" id="predictionList">
+    🧠 登録された予想はまだありません。
+  </div>
+
+  <hr />
+
+  <h3>🏆 結果発表</h3>
+  <input type="number" id="actualResult" placeholder="実際の達成試合数" />
+  <button onclick="showTopPredictions()">結果を表示</button>
+
+  <div class="predictor-list" id="topResult">
+    🔍 上位10位以内の予想がここに表示されます。
+  </div>
+</body>
+</html>
