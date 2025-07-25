@@ -1,0 +1,62 @@
+html, body {
+  background-color: #e6f0ff !important; /* ほんのりパステルブルー */
+  margin: 0;
+  padding: 20px;
+  height: 100%;
+  font-family: 'Segoe UI', sans-serif;
+  color: #333;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h2 {
+  font-size: 24px;
+  color: #1a3d99; /* 濃いブルーでタイトル強調 */
+}
+
+h3 {
+  margin-top: 30px;
+  color: #2a4dcc;
+}
+
+input[type='text'],
+input[type='number'] {
+  padding: 8px;
+  margin: 5px;
+  border: 1px solid #99b3ff;
+  border-radius: 6px;
+  font-size: 14px;
+  width: calc(100% - 22px);
+  box-sizing: border-box;
+  background-color: #f7fbff;
+  color: #1a3d99;
+}
+
+button {
+  padding: 8px 16px;
+  margin-left: 5px;
+  background-color: #3366ff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #254eda;
+}
+
+.predictor-list {
+  margin-top: 15px;
+  background-color: #cce0ff;
+  padding: 12px;
+  border-radius: 8px;
+  min-height: 50px;
+}
+
+ul {
+  padding-left: 20px;
+  margin-top: 10px;
+}
